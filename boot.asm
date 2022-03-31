@@ -1,11 +1,11 @@
-call greet					; run greet
+; "cat" program
 
-jmp $						; loop					(?)
+mov ah, 0
+int 0x16				; receive input in al
 
-greet:						; greet subroutine
-	mov ah, 0x0e			; set print mode		(?)
-	mov al, "H"				; keep "H" letter 
-	int 0x10				; print					(?)
+mov ah, 0x0e			; initialize output
+int 0x10				; output
 
-times 510-($-$$) db 0		; fill 510 bytes
-dw 0xaa55					; bootloader
+jmp $
+times 510-($-$$) db 0
+db 0x55, 0xaa			; final bytes for booting
